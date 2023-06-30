@@ -51,6 +51,12 @@ function App() {
   const [Timevalue, setTimeValue] = useState<string | number>("");
   const [Locationvalue, setLocationValue] = useState<string | number>("");
   const [Statusvalue, setStatusValue] = useState<string | number>("");
+/**
+ * This component represents the main App of the SimulatAR Tool.
+ * It displays a UI with a list of files that can be filtered by time, location and status.
+ * It also allows the user to upload a design, watch a video and select a platform.
+ * @returns The App component.
+ */
 
   const [value4, setValue4] = useState("Apple");
   const loadMoreData = async () => {
