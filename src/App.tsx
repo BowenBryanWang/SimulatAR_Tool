@@ -43,9 +43,8 @@ const onChange = (checked: boolean) => {
 };
 
 const options = [
-  { label: "OHMD", value: "OHMD" },
-  { label: "VR", value: "VR" },
-  { label: "Glass", value: "Glass" },
+  { label: "Nreal Light", value: "Nreal Light" },
+  { label: "Hololens2", value: "Hololens2" },
 ];
 function App() {
   const [data, setData] = useState<String[]>([]);
@@ -136,7 +135,7 @@ function App() {
                   <InfiniteScroll
                     dataLength={data.length}
                     next={loadMoreData}
-                    hasMore={data.length < 50}
+                    hasMore={data.length < 10}
                     loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                     endMessage={
                       <Divider plain>It is all, no video more 🤐</Divider>
@@ -188,7 +187,7 @@ function App() {
                   margin: "5%",
                 }}
               >
-                <ReactPlayer url="https://drive.google.com/file/d/1ygGLX8VmHTS6WOu9dc7dMNy6rG5XeNYQ/view?usp=drive_link" />
+                <ReactPlayer url="https://www.youtube.com/watch?v=1_XzrxXnwMM&t=221s&ab_channel=ProwalkTours" />
               </div>
               <div
                 style={{
