@@ -1,6 +1,12 @@
 import {
   EditOutlined,
   EllipsisOutlined,
+  LeftCircleOutlined,
+  LeftOutlined,
+  PlaySquareTwoTone,
+  RightCircleOutlined,
+  RightOutlined,
+  SearchOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import "./App.css";
@@ -19,6 +25,8 @@ import {
   message,
   Radio,
   RadioChangeEvent,
+  Modal,
+  Carousel,
 } from "antd";
 import ReactPlayer from "react-player";
 
@@ -51,12 +59,34 @@ function App() {
   const [Timevalue, setTimeValue] = useState<string | number>("");
   const [Locationvalue, setLocationValue] = useState<string | number>("");
   const [Statusvalue, setStatusValue] = useState<string | number>("");
-/**
- * This component represents the main App of the SimulatAR Tool.
- * It displays a UI with a list of files that can be filtered by time, location and status.
- * It also allows the user to upload a design, watch a video and select a platform.
- * @returns The App component.
- */
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const contentStyle: React.CSSProperties = {
+    margin: 0,
+    height: "160px",
+    color: "#fff",
+    lineHeight: "160px",
+    textAlign: "center",
+    background: "#364d79",
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  /**
+   * This component represents the main App of the SimulatAR Tool.
+   * It displays a UI with a list of files that can be filtered by time, location and status.
+   * It also allows the user to upload a design, watch a video and select a platform.
+   * @returns The App component.
+   */
 
   const [value4, setValue4] = useState("Apple");
   const loadMoreData = async () => {
@@ -90,7 +120,19 @@ function App() {
     console.log("radio4 checked", value);
     setValue4(value);
   };
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement !== null);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
   return (
     <>
       <Divider orientation="left">
@@ -153,10 +195,70 @@ function App() {
                       renderItem={(item) => (
                         <List.Item>
                           <List.Item.Meta
-                            // avatar={
-                            //   <Avatar src={item.picture.large} shape="square" />
-                            // }
-                            title={<a>{item}</a>}
+                            // avatar={<PlaySquareTwoTone style={{ fontSize: '32px' }}/>}
+                            style={{ display: "flex", alignItems: "center" }}
+                            title={
+                              <p style={{ textAlign: "left" }}>
+                                {item.split("_").slice(2).join("_")}
+                              </p>
+                            }
+                            description={
+                            <div style={{alignItems:"left",textAlign: "left"}}>
+                                <Button type="dashed" size="small" style={{color: "#7616FF"}}>
+                                  {item
+                                  .split("/")
+                                  .slice(1, 5)
+                                  .map((word) => {
+                                    return word
+                                      .replace(/_/g, " ")
+                                      .replace(/\..+$/, " ");
+                                  })
+                                  .join(" ")
+                                  .split(" ")
+                                  [0]}
+                                </Button>
+                                <Button type="dashed" size="small" style={{color: "#7616FF"}}>
+                                  {item
+                                  .split("/")
+                                  .slice(1, 5)
+                                  .map((word) => {
+                                    return word
+                                      .replace(/_/g, " ")
+                                      .replace(/\..+$/, " ");
+                                  })
+                                  .join(" ")
+                                  .split(" ")
+                                  [1]}
+                                </Button>
+                                <Button type="dashed" size="small" style={{color: "#7616FF"}}>
+                                  {item
+                                  .split("/")
+                                  .slice(1, 5)
+                                  .map((word) => {
+                                    return word
+                                      .replace(/_/g, " ")
+                                      .replace(/\..+$/, " ");
+                                  })
+                                  .join(" ")
+                                  .split(" ")
+                                  [2]}
+                                </Button>
+                                <Button type="dashed" size="small" style={{color: "#7616FF"}}>
+                                  {item
+                                  .split("/")
+                                  .slice(1, 5)
+                                  .map((word) => {
+                                    return word
+                                      .replace(/_/g, " ")
+                                      .replace(/\..+$/, " ");
+                                  })
+                                  .join(" ")
+                                  .split(" ")
+                                  [3]}
+                                </Button>
+                                </div>
+                              
+                            }
                           />
                           <Switch onChange={onChange} defaultChecked={false} />
                         </List.Item>
@@ -186,6 +288,7 @@ function App() {
                 </Upload>
               </div>
               <div
+                className={`overlay${isFullscreen ? ' fullscreen' : ''}`}
                 style={{
                   display: "flex",
                   justifyContent: "center",
@@ -193,7 +296,62 @@ function App() {
                   margin: "5%",
                 }}
               >
-                <ReactPlayer url="https://www.youtube.com/watch?v=1_XzrxXnwMM&t=221s&ab_channel=ProwalkTours" />
+                <Carousel effect="fade" style={{ width: "640px" }} arrows={true} prevArrow={<LeftCircleOutlined />} nextArrow={<RightCircleOutlined />}>
+                  <div>
+                    <ReactPlayer
+                      url="https://www.youtube.com/watch?v=1_XzrxXnwMM&t=221s&ab_channel=ProwalkTours"
+                      controls={true}
+                    />
+                  </div>
+                  <div>
+                    <ReactPlayer
+                      url="https://www.youtube.com/watch?v=1_XzrxXnwMM&t=221s&ab_channel=ProwalkTours"
+                      controls={true}
+                    />
+                  </div>
+                  <div>
+                    <ReactPlayer
+                      url="https://www.youtube.com/watch?v=1_XzrxXnwMM&t=221s&ab_channel=ProwalkTours"
+                      controls={true}
+                    />
+                  </div>
+                </Carousel>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Button type="primary" onClick={showModal}>
+                  Full Screen
+                </Button>
+                <Modal
+                  centered
+                  visible={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  footer={null}
+                  width="100vw"
+                >
+                  <div
+                    className="overlay"
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                      height: "100vh",
+                    }}
+                  >
+                    <ReactPlayer
+                      url="https://www.youtube.com/watch?v=1_XzrxXnwMM&t=221s&ab_channel=ProwalkTours"
+                      controls={true}
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
+                </Modal>
               </div>
               <div
                 style={{

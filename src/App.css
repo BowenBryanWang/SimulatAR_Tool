@@ -38,3 +38,51 @@
   width: 800px;
   height: auto;
 }
+
+.overlay {
+  position: relative;
+}
+
+.overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 使用 rgba() 函数设置黑色图层的颜色和透明度 */
+  pointer-events: none;
+  background-image: url("./test.png");
+  background-repeat: no-repeat;
+  background-position: center 10%;
+  background-size: 20%;
+}
+
+.overlay.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999; /* 确保黑色图层覆盖其他内容 */
+}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-prev:focus {
+  font-size: 32px;
+  left: 10px;
+  z-index: 2;
+  color: white;
+  opacity: 0.5;
+}
+
+.ant-carousel .slick-next,
+.ant-carousel .slick-next:hover,
+.ant-carousel .slick-next:focus {
+  font-size: 32px;
+  right: 20px;
+  z-index: 2;
+  color: white;
+  opacity: 0.5;
+}
